@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <ul class="list-group">
+      <li class="list-group list-group-flush">
+        <div>
+          <input
+            type="text"
+            style="height: 2rem"
+            [(ngModel)]="filterText"
+            class="form-control"
+            id="filterBrand"
+            placeholder="Markalar..."
+          />
+        </div>
+      </li>
+
+      <li
+        (click)="setCurrentBrand(brand)"
+        [class]="getCurrentBrandClass(brand)"
+        style="font-weight: bold"
+        routerLink="/cars/getcarsbybrandid/{{ brand.id }}"
+        *ngFor="let brand of brands | filterBrand: filterText"
+      >
+        {{ brand.name }}
+      </li>
+    </ul>
+  </div>
+</div>

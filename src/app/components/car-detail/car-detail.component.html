@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row" *ngFor="let carDetail of carDetails">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false"
+      style="width: 60%; height: 70%">
+      <div class="carousel-indicators">
+        <button *ngFor="let carImage of carImages; let i = index" type="button"
+          data-bs-target="#carouselExampleIndicators" attr.data-bs-slide-to="{{ i }}" [class]="getButtonClass(carImage)"
+          aria-current="true" aria-label="Slide 1"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div *ngFor="let carImage of carImages" [class]="getCurrentImageClass(carImage)">
+          <img src="{{ imagePath }}{{ carImage.path }}" class="d-block w-100" alt="..." />
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Prev</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="col-md-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" colspan="5" style="text-align: center; ">ARAÇ BİLGİLERİ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">G.Fiyatı:</th>
+            <td>{{ carDetail.dailyPrice | currency: "₺" }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Araç Adı:</th>
+            <td>{{ carDetail.carName }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Markası:</th>
+            <td>{{ carDetail.brandName }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Rengi:</th>
+            <td>{{ carDetail.colorName }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Modeli:</th>
+            <td>{{ carDetail.modelYear }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Açıklama:</th>
+            <td>{{ carDetail.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      style="width: 60%; margin-top: 0.1%">
+      Kirala
+    </button>
+
+    <app-rental [rentCar]="carDetail"></app-rental>
+  </div>
+</div>

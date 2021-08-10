@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <ul class="list-group">
+      <li class="list-group list-group-flush">
+        <div>
+          <input
+            type="text"
+            style="height: 2rem"
+            [(ngModel)]="filterText"
+            class="form-control"
+            id="filterColor"
+            placeholder="Renkler..."
+          />
+        </div>
+      </li>
+      <li
+        (click)="setCurrentColor(color)"
+        [class]="getCurrentColorClass(color)"
+        style="font-weight: bold"
+        *ngFor="let color of colors | filterColor: filterText"
+        routerLink="/cars/getcarsbycolorid/{{ color.id }}"
+      >
+        {{ color.name }}
+      </li>
+    </ul>
+  </div>
+</div>

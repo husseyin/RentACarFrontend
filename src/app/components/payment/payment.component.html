@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+
+            <form [formGroup]="payForm">
+                <div class="card">
+                    <h5 style="text-align: center;font-weight: bold;" class="card-header">Ödeme İşlemleri</h5>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+
+                                <label style="font-weight: bold;" class="form-label">Kart Sahibinin:</label>
+                                <div class="input-group mb-4">
+                                    <input formControlName="name" type="text" class="form-control" placeholder="Adı"
+                                        aria-label="name">
+                                    <span class="input-group-text"></span>
+                                    <input formControlName="surname" type="text" class="form-control"
+                                        placeholder="Soyadı" aria-label="surname">
+                                </div>
+
+                                <label style="font-weight: bold;" class="form-label">Kart Numarası:</label>
+                                <div class="input-group mb-4">
+                                    <input formControlName="cardnumber" type="text" maxlength="16" class="form-control"
+                                        aria-label="name">
+                                </div>
+
+                                <label style="font-weight: bold;" class="form-label">Kart Tarih ve CVV Bilgisi:</label>
+                                <div class="col-md-2">
+                                    <select formControlName="cardmonth" class="form-select"
+                                        aria-label="Default select example">
+                                        <option *ngFor="let month of months" value="{{month}}">{{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select formControlName="cardyear" class="form-select"
+                                        aria-label="Default select example">
+                                        <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <input formControlName="cardcvv" type="text" maxlength="3" class="form-control"
+                                        placeholder="CVV" aria-label="cvv">
+                                </div>
+
+                                <!-- <div class="col-md-5">
+                                <div style="float: right;text-align: right;" class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Kartımı Kaydet
+                                    </label>
+                                </div>
+                            </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card-footer text-muted">
+                        <div class="container">
+                            <div class="row">
+
+                                <button (click)="checkPayment()" type="button"
+                                    class="btn btn-outline-dark btn-sm">Secondary</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-4">
+
+            <h6 style="text-align: right;" class="card-header">-Özet-</h6>
+            <table style="text-align: center;" *ngFor="let carDetail of carDetails" class="table">
+                <tbody>
+                    <tr>
+                        <th *ngIf="customerDetail" scope="row">{{customerDetail.userName}}
+                            "{{customerDetail.companyName}}"</th>
+                    </tr>
+                    <tr>
+                        <img src="{{ imagePath }}{{ carImage.path }}" class="d-block w-100" alt="..." />
+                    </tr>
+                    <tr>
+                        <th scope="row">{{carDetail.carName}} - {{carDetail.modelYear}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Günlük Fiyatı: {{ carDetail.dailyPrice | currency: "₺" }}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Gün Sayısı: {{ numberOfDays }}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Toplam Tutar: {{ totalPrice | currency: "₺" }}</th>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

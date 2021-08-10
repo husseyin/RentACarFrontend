@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <select [(ngModel)]="filterBrandId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option value="0">Markalar</option>
+        <option *ngFor="let brand of brands" [value]="brand.id" selected>
+          {{ brand.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <select [(ngModel)]="filterColorId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option value="0">Renkler</option>
+        <option *ngFor="let color of colors" [value]="color.id" selected>
+          {{ color.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" (click)="getCarDetailsByBrandAndColorId(filterBrandId, filterColorId)"
+        class="btn btn-secondary btn-sm">
+        Filtrele
+      </button>
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" (click)="filterClean()" class="btn btn-secondary btn-sm">
+        Temizle
+      </button>
+    </div>
+
+    <div class="col-md-4">
+      <div>
+        <input type="text" style="font-weight: bold; height: 2rem" [(ngModel)]="filterText" class="form-control"
+          id="filterText" placeholder="aranan..." />
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 0%">
+    <div class="col" *ngFor="let carDetail of carDetails | filterCar: filterText">
+      <div class="card h-100">
+        <h4 class="card-title">{{ carDetail.carName }}</h4>
+        <img src="{{ imagePath }}{{ carDetail.carImage[0].path }}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ carDetail.dailyPrice | currency: "₺" }}</h5>
+          <p class="card-text">{{ carDetail.description }}</p>
+        </div>
+        <div class="card-footer">
+          <button (click)="setCurrentCarDetail(carDetail)" routerLink="/cars/getcardetailsbycarid/{{ carDetail.carId }}"
+            class="btn btn-link" type="button" style="float: right">
+            Detay.
+          </button>
+
+          <!-- Button trigger modal -->
+          <button (click)="setCurrentCarDetail(carDetail)" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="width: 50%">
+            Kirala 
+          </button>
+        </div>
+
+        <app-rental [rentCar]="currentCarDetail"></app-rental>
+
+      </div>
+    </div>
+  </div>
+</div>
